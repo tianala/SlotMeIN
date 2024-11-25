@@ -1,0 +1,138 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    color: #333;
+  }
+  
+  .sidebar {
+    width: 250px;
+    height: 100vh;
+    background-color: #ffffff;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    top: 0;
+    left: 0;
+  }
+
+  .logo {
+    margin-top: 30px;
+    display: flex; /* Align logo image and text horizontally */
+    align-items: center; /* Center items vertically */
+    justify-content: center; /* Center the entire logo section horizontally */
+    gap: 10px; /* Space between image and text */
+    margin-bottom: 10px; /* Space below the logo section */
+  }
+  
+  .logo-image {
+    height: 45px; /* Adjust logo image height */
+    width: auto; /* Maintain aspect ratio */
+  }
+  
+.logo h2 {
+  font-size: 26px; /* Clean font size */
+  font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-weight: 700; /* Bold text */
+  color: #333; /* Dark gray */
+  margin: 0; /* Remove default margin */
+}
+  
+  .divider {
+    border: none;
+    border-top: 1px solid #ccc; /* Subtle horizontal line */
+    margin: 20px 0; /* Space above and below the line */
+  }
+  
+  .menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  /* .menu li {
+    border-bottom: 1px solid #f0f0f0;
+  }
+   */
+
+ .menu li a {
+    align-items: center;
+    text-decoration: none;
+    color: inherit;
+    font-size: 18px;
+    gap: 8px; 
+    display: flex; /* Use flexbox for alignment */
+    padding: 15px 20px;
+    text-decoration: none;
+    color: #333; 
+  }
+
+  .menu li a .material-icons {
+    font-size: 25px; /* Adjusts icon size */
+  }
+  
+  .menu li a:hover {
+    background-color: #f0f0f0;
+  }
+  
+  .main-content {
+    margin-left: 250px;
+    padding: 20px;
+    background-color: #dbdbdb2a;
+    min-height: 100vh;
+  }
+
+  .dashboard-title {
+    font-size: 30px; /* Larger, clean font for the title */
+    font-family: Tahoma, sans-serif;
+    font-weight: 700; /* Bold for emphasis */
+    color: #333; /* Dark gray for a professional look */
+    text-align: left; /* Align text with the boxes */
+    margin-left: 20px;
+    font-style: bold;
+  }
+  
+  .dashboard-description {
+    font-size: 18px; /* Slightly smaller font for the paragraph */
+    font-family: Tahoma, sans-serif;
+    color: #555; /* Softer gray for better contrast */
+    margin-bottom: 28px; /* Space between the paragraph and boxes */
+    margin-left: 20px;
+    margin-top: -10px;
+  }
+  
+.events {
+  display: flex;
+  flex-wrap: wrap; /* Allows boxes to wrap to the next row */
+  gap: 20px; /* Consistent spacing between boxes and rows */
+  padding: 20px; /* Adds padding around the container */
+}
+
+.event-box {
+  flex: 0 0 calc(32% - 30px); /* Each box takes up ~30% of the row width */
+  max-width: calc(32% - 30px); /* Prevents exceeding the calculated width */
+  height: 250px; /* Set a consistent height */
+  background-color: #ffffff;
+  padding: 15px;
+  border-radius: 15px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  text-align: center; /* Centers text content */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+  
+  
+  .event-box h2 {
+    margin: 0 0 10px;
+  }
+  
+  .event-box p {
+    margin: 0 0 10px;
+  }
+  
+  .event-box small {
+    color: #555;
+  }
+  
