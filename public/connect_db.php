@@ -4,7 +4,7 @@ date_default_timezone_set("Asia/Manila");
 $hostname = 'slot-me-in-slot-me-in.l.aivencloud.com';
 $defaultSchema = 'defaultdb';
 $username = 'avnadmin';
-// $password = 'AVNS_6xSC86qbw3QruG3JdYI';
+$password = 'AVNS_6xSC86qbw3QruG3JdYI';
 $charset = 'utf8mb4';
 $port = 17432;
 
