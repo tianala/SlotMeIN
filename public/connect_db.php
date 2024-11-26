@@ -17,6 +17,4 @@ if ($mysqli->connect_error) {
 if (!$mysqli->set_charset($charset)) {
     die("Error loading character set $charset: " . $mysqli->error);
 }
-
-echo "Connection successful.";
 ?>
