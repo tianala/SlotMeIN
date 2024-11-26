@@ -25,18 +25,16 @@ if (isset($_SESSION['logged_in'])) {
 </head>
 <body class="flex w-screen min-h-screen bg-gradient-to-tr from-[#ff8989] via-[#f8b9b9] to-white">
     <div class="flex flex-col w-full h-screen md:h-3/4 md:m-auto md:bg-transparent bg-[#f8b9b9]">
-        <div class="flex items-center justify-center w-full h-1/3">
-            <img class="w-40 h-40 mt-auto md:w-60 md:h-60" src="assets/images/logo.png">
-        </div>
-        <div class="flex justify-center w-11/12 p-5 mx-auto md:w-1/2 h-3/5">
-            <div class="flex flex-col w-full p-4 bg-white shadow md:w-1/2 md:min-w-[30rem] rounded-xl h-3/4 md:h-96">
-                <form id="logInForm" action="includes/logic/sign_in.php" type="button" method="POST" class="flex flex-col items-center w-full mt-5 h-fit">
-                    <div class="flex items-center w-full p-2 mb-4 border border-gray-400 rounded-full">
+        <div class="flex items-center justify-center w-11/12 h-full p-5 mx-auto md:w-1/2">
+            <div class="flex flex-col w-full p-4 bg-white shadow md:w-1/2 md:min-w-[30rem] rounded-xl h-auto">
+                <img class="w-40 h-40 m-auto md:mb-5 md:w-60 md:h-60 " src="assets/images/logo.png">
+                <form id="logInForm" action="views/logic/sign_in.php" type="button" method="POST" class="flex flex-col items-center w-full mt-5 h-fit">
+                    <div class="flex items-center w-full p-2 mb-4 border border-gray-400 rounded-full md:w-5/6">
                         <i class="mx-2 text-xl text-gray-600 fa-regular fa-envelope"></i>
                         <input id="email" name="email" type="email" class="w-10/12 h-full px-1 text-lg focus:outline-none" placeholder="Enter your email">
                     </div>
     
-                    <div class="flex items-center w-full p-2 border border-gray-400 rounded-full">
+                    <div class="flex items-center w-full p-2 border border-gray-400 rounded-full md:w-5/6">
                         <i class="mx-2 text-xl text-gray-600 fa-solid fa-lock"></i>
                         <input id="password" name="password" type="password" class="w-10/12 h-full px-1 text-lg focus:outline-none" placeholder="Enter your password">
                     </div>
