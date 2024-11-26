@@ -28,8 +28,8 @@
                     </div>
                 </forms>
                 <button class="w-40 h-10 p-1 mx-auto mt-10 text-xl font-semibold text-center text-white bg-gray-700 rounded-full hover:bg-gray-600">LOG IN</button>
-                <div class="w-40 h-10 p-1 mx-auto mt-4 text-xl font-semibold text-center text-gray-700 rounded-full"><a class="hover:text-[#ff8989]" href="###">REGISTER</a></div>
-                <div class="w-40 h-10 p-1 mx-auto mt-5 text-center text-black rounded-full"><a class="hover:text-[#fc7474]" href="###">Forgot password?</a></div>
+                <div class="w-40 h-10 p-1 mx-auto mt-4 text-xl font-semibold text-center text-gray-700 rounded-full"><a class="hover:text-[#ff8989]" href="register.php">REGISTER</a></div>
+                <div class="w-40 h-10 p-1 mx-auto mt-5 text-center text-black rounded-full"><a class="hover:text-[#fc7474] hover:underline" href="###">Forgot password?</a></div>
             </div>
         </div>
     </div>
