@@ -48,6 +48,8 @@ $orgs = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     <div class="flex flex-col w-full h-screen md:h-3/4 md:m-auto md:bg-transparent bg-zinc-700">
         <div class="flex items-center justify-center w-11/12 h-full p-5 mx-auto md:w-1/2">
             <div class="flex flex-col w-full p-4 bg-white shadow md:w-1/2 md:min-w-[30rem] rounded-xl h-[32rem] md:h-[37rem]">
+
+            <!-- Log in -->
                 <div id="logInDiv" class="w-full h-full">
                     <img class="w-40 h-40 m-auto md:mb-5 md:w-60 md:h-60 " src="assets/images/logo.png">
                     <form id="logInForm" action="views/logic/sign_in.php" type="button" method="POST" class="flex flex-col items-center w-full mt-5 h-fit">
@@ -58,13 +60,18 @@ $orgs = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
         
                         <div class="flex items-center w-full p-2 border border-gray-400 rounded-full md:w-5/6">
                             <i class="mx-2 text-xl text-gray-600 fa-solid fa-lock"></i>
-                            <input id="password" name="password" type="password" class="w-10/12 h-full px-1 text-lg focus:outline-none" placeholder="Enter your password">
+                            <div class="flex items-center w-full text-lg h-fit">
+                                <input id="password" name="password" type="password" class="w-10/12 px-1 focus:outline-none h-fit" placeholder="Enter your password">
+                                <i onclick="showPassword(this)" class="ml-5 fa-solid fa-eye"></i>
+                            </div>
                         </div>
-                        <div class="flex justify-end w-full h-10 p-1 mt-1 text-center text-black rounded-full"><a class="mr-12 text-orange-400 hover:underline" href="###">Forgot Password?</a></div>
+                        <div class="flex justify-end w-full h-10 p-1 mt-1 text-center text-black rounded-full"><a class="mr-12 text-orange-400 hover:underline" href="#">Forgot Password?</a></div>
                         <button id="logInBtn" type="submit"  class="w-40 h-10 p-1 mx-auto mt-8 text-xl font-semibold text-center text-white bg-orange-600 rounded-full hover:bg-orange-500">LOG IN</button>
                     </form>
                     <div class="h-10 p-1 mx-auto mt-8 text-center text-black rounded-full w-fit">Don't have an account? <a id="register" class="hover:text-orange-500 hover:underline" href="">Register</a></div>
                 </div>
+
+            <!-- Register -->
                 <div id="registerDiv" class="hidden w-full h-full overflow-y-hidden">
                     <div class="flex justify-center w-full mt-4 text-4xl font-semibold text-orange-500 md:text-5xl">Sign Up</div>
                     <form id="registerForm" class="flex flex-col items-center w-full mt-10 md:mt-14" action="views/logic/register.php" method="POST">
@@ -87,14 +94,14 @@ $orgs = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
                         </div>
                         <div class="flex items-center w-10/12 mb-3 border-b-2 border-gray-300 h-fit md:mb-5 focus:border-orange-300">
                             <input id="set_password" type="password" name="set_password" class="w-4/5 pl-1 text-lg placeholder-zinc-700 focus:outline-none" placeholder="Password" required>
-                            <i class="ml-auto text-lg fa-solid fa-eye"></i>
+                            <i onclick="showPassword(this)" class="ml-auto text-lg fa-solid fa-eye"></i>
                         </div>
 
                         <div class="flex items-center w-10/12 mb-3 border-b-2 border-gray-300 h-fit md:mb-5 focus:border-orange-300">
                             <input id="confirm_password" type="password" name="confirm_password" class="w-4/5 pl-1 text-lg placeholder-zinc-700 focus:outline-none" placeholder="Confirm password" required>
-                            <i class="ml-auto text-lg fa-solid fa-eye"></i>
+                            <i onclick="showPassword(this)" class="ml-auto text-lg fa-solid fa-eye"></i>
                         </div>                        
-                        <button type="submit" class="px-3 py-2 mt-5 font-semibold text-white rounded-full bg-zinc-600">Create your account</button>
+                        <button type="submit" class="px-3 py-2 mt-5 font-semibold text-white rounded-full bg-zinc-600 hover:bg-orange-400">Create your account</button>
                         <div class="h-10 p-1 mx-auto mt-5 text-center text-black rounded-full md:mt-8 w-fit">Already have an account? <a id="login" class="hover:text-orange-500 hover:underline" href="">Log in here</a></div>
                     </form>
                 </div>
@@ -116,6 +123,18 @@ $orgs = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
         $("#selected_org").text( $org_name);
         $("#organization").val($org_id);
         $("#dropdown").addClass("invisible");
+    }
+
+    function showPassword(e) {
+        if ($(e).siblings('input').attr("type") === "password") {
+            $(e).siblings('input').attr("type", "text");
+            $(e).removeClass("fa-eye");
+            $(e).addClass("fa-eye-slash");
+        } else {
+            $(e).siblings('input').attr("type", "password");
+            $(e).removeClass("fa-eye-slash");
+            $(e).addClass("fa-eye");
+        }
     }
 
     $(document).ready(function () {
