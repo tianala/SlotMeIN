@@ -55,7 +55,7 @@ $orgs = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
                     <form id="logInForm" action="views/logic/sign_in.php" type="button" method="POST" class="flex flex-col items-center w-full mt-5 h-fit">
                         <div class="flex items-center w-full p-2 mb-4 border border-gray-400 rounded-full md:w-5/6">
                             <i class="mx-2 text-xl text-gray-600 fa-regular fa-envelope"></i>
-                            <input id="email" name="email" type="email" class="w-10/12 h-full px-1 text-lg focus:outline-none" placeholder="Enter your email">
+                            <input id="email" name="email" type="email" class="w-10/12 h-full px-1 text-lg focus:outline-none" placeholder="Enter your email" required>
                         </div>
         
                         <div class="flex items-center w-full p-2 border border-gray-400 rounded-full md:w-5/6">
@@ -171,6 +171,11 @@ $orgs = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
             if (password !== confirmPassword) {
                 event.preventDefault();
                 alert("Passwords do not match. Please try again.");
+            }
+
+            if ($("#organization").val() === "") {
+                event.preventDefault();
+                alert("Please choose your organization.");
             }
         });
     })
