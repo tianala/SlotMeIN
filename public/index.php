@@ -67,7 +67,7 @@ $orgs = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
                 </div>
                 <div id="registerDiv" class="hidden w-full h-full overflow-y-hidden">
                     <div class="flex justify-center w-full mt-4 text-4xl font-semibold text-orange-500 md:text-5xl">Sign Up</div>
-                    <form id="registerForm" class="flex flex-col items-center w-full mt-14" action="views/logic/register.php" method="POST">
+                    <form id="registerForm" class="flex flex-col items-center w-full mt-10 md:mt-14" action="views/logic/register.php" method="POST">
                         <input id="first_name" name="first_name" class="w-10/12 pl-1 mb-3 text-lg border-b-2 border-gray-300 md:mb-5 focus:outline-b placeholder-zinc-700 focus:outline-none focus:border-orange-300" placeholder="First Name" required>
                         <input id="last_name" name="last_name" class="w-10/12 pl-1 mb-3 text-lg border-b-2 border-gray-300 md:mb-5 focus:outline-b placeholder-zinc-700 focus:outline-none focus:border-orange-300" placeholder="Last Name" required>
                         <input id="reg_email" type="email" name="reg_email" class="w-10/12 pl-1 mb-3 text-lg border-b-2 border-gray-300 md:mb-5 focus:outline-b placeholder-zinc-700 focus:outline-none focus:border-orange-300" placeholder="Email" required>
@@ -93,8 +93,9 @@ $orgs = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
                         <div class="flex items-center w-10/12 mb-3 border-b-2 border-gray-300 h-fit md:mb-5 focus:border-orange-300">
                             <input id="confirm_password" type="password" name="confirm_password" class="w-4/5 pl-1 text-lg placeholder-zinc-700 focus:outline-none" placeholder="Confirm password" required>
                             <i class="ml-auto text-lg fa-solid fa-eye"></i>
-                        </div>                        <button type="submit" class="px-3 py-2 mt-5 font-semibold text-white rounded-full bg-zinc-600">Create your account</button>
-                        <div class="h-10 p-1 mx-auto mt-8 text-center text-black rounded-full w-fit">Already have an account? <a id="login" class="hover:text-orange-500 hover:underline" href="">Log in here</a></div>
+                        </div>                        
+                        <button type="submit" class="px-3 py-2 mt-5 font-semibold text-white rounded-full bg-zinc-600">Create your account</button>
+                        <div class="h-10 p-1 mx-auto mt-5 text-center text-black rounded-full md:mt-8 w-fit">Already have an account? <a id="login" class="hover:text-orange-500 hover:underline" href="">Log in here</a></div>
                     </form>
                 </div>
             </div>
