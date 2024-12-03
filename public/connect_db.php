@@ -8,13 +8,11 @@ $password = 'AVNS_6xSC86qbw3QruG3JdYI';
 $charset = 'utf8mb4';
 $port = 17432;
 
-$mysqli = new mysqli($hostname, $username, $password, $defaultSchema, $port);
+$$dsn = "mysql:host=$hostname;dbname=$defaultSchema;charset=$charset;port=$port";
 
-if ($mysqli->connect_error) {
-    die("Connection failed: " . $mysqli->connect_error);
-}
+$option =[PDO::ATTR_ERRMODE 			=> PDO::ERRMODE_EXCEPTION,
+		 PDO::ATTR_DEFAULT_FETCH_MODE	=> PDO::FETCH_ASSOC,
+		 PDO::ATTR_EMULATE_PREPARES		=> false];
 
-if (!$mysqli->set_charset($charset)) {
-    die("Error loading character set $charset: " . $mysqli->error);
-}
-?>
+global $pdo;
+$pdo= new PDO($dsn,$username,$password,$option);

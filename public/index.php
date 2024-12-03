@@ -11,9 +11,9 @@ if (isset($_SESSION['logged_in'])) {
     }
 }
 
-$stmt = $mysqli->prepare("SELECT idorganizations as idorg, name from organizations");
+$stmt = $pdo->prepare("SELECT idorganizations as idorg, name from organizations");
 $stmt->execute();
-$orgs = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+$orgs = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <style>

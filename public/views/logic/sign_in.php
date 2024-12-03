@@ -6,15 +6,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = $_POST["password"];
     $hashed_pw = hash('sha256', $password);
 
-    $stmt = $mysqli->prepare("SELECT * FROM users WHERE email=?");
-    $stmt->bind_param("s", $email);
-    $stmt->execute();
+    $stmt = $mysqli->prepare("SELECT * FROM users WHERE email=:email");
+    $stmt->execute(['email', $email]);
 
-    $result = $stmt->get_result();
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    if ($result->num_rows > 0) {
-        $user = $result->fetch_assoc();
-
+    if ($user) {
         if($user["password"] == $hashed_pw) {
             session_start();
             $_SESSION["logged_in"] = True;
