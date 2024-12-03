@@ -6,8 +6,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = $_POST["password"];
     $hashed_pw = hash('sha256', $password);
 
-    $stmt = $mysqli->prepare("SELECT * FROM users WHERE email=:email");
-    $stmt->execute(['email', $email]);
+    $stmt = $pdo->prepare("SELECT * FROM users WHERE email=:email");
+    $stmt->execute(['email' => $email]);
 
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
 

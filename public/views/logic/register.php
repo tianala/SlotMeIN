@@ -9,13 +9,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = $_POST["set_password"];
 
     $stmt = $pdo->prepare("INSERT INTO users (email, first_name, last_name, organization, user_type, password)
-                            VALUES (:email, :first_name, :lastname, :organization, 1, SHA2(:password, 256))");
+                            VALUES (:email, :first_name, :last_name, :organization, 1, SHA2(:password, 256))");
     $stmt->execute([
         'email' => $email,
         'first_name' => $first_name,
         'last_name' => $last_name,
         'organization' => $organization,
-        'password' => $$password
+        'password' => $password
     ]);    
     
     if ($stmt->execute()) {

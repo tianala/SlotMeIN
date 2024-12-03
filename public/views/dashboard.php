@@ -19,12 +19,12 @@ include_once("../connect_db.php");
     <div>
         <h1 class="text-[44px]">
         <?php 
-            $stmt = $mysqli->prepare("
+            $stmt = $pdo->prepare("
                 SELECT * FROM users WHERE idusers = ?;
             ");
     
             $stmt->execute([$_SESSION['user_id']]);
-            $row = $stmt->get_result()->fetch_assoc();
+            $row = $stmt->fetch(PDO::FETCH_ASSOC);
             echo ucfirst($row['first_name']);
         ?> 
         

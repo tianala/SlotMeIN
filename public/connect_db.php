@@ -8,7 +8,7 @@ $password = 'AVNS_6xSC86qbw3QruG3JdYI';
 $charset = 'utf8mb4';
 $port = 17432;
 
-$$dsn = "mysql:host=$hostname;dbname=$defaultSchema;charset=$charset;port=$port";
+$dsn = "mysql:host=$hostname;dbname=$defaultSchema;charset=$charset;port=$port";
 
 $option =[PDO::ATTR_ERRMODE 			=> PDO::ERRMODE_EXCEPTION,
 		 PDO::ATTR_DEFAULT_FETCH_MODE	=> PDO::FETCH_ASSOC,
