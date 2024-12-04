@@ -1,4 +1,5 @@
 <?php
+if (session_status() === PHP_SESSION_NONE){ session_start(); }
 include '../connect_db.php';
 
 // Fetch events data
@@ -56,7 +57,13 @@ $venues = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 <!-- Main Content -->
 <div class="ml-64 p-8 bg-gray-100 min-h-screen transition-all duration-500" id="main-content">
-  <h1 class="text-3xl font-bold mb-2">Hi, (insert name)</h1>
+  <?php
+
+      $stmt = $pdo->prepare("SELECT first_name FROM users WHERE idusers = ?");
+      $stmt->execute([$_SESSION["user_id"]]);
+      $result = $stmt->fetch(PDO::FETCH_ASSOC);
+  ?>
+  <h1 class="text-3xl font-bold mb-2">Hi, <?= $result['first_name']?></h1>
 
     <!-- Create Button -->
     <div class="absolute right-10 top-10 bg-orange-500 text-white rounded-lg px-4 py-2 flex items-center space-x-2 text-lg shadow-lg hover:bg-orange-600">
