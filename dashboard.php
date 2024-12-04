@@ -71,7 +71,12 @@ $venues = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <!-- Event Grid -->
     <div class="flex flex-wrap gap-5 p-5 mt-9">
       <?php foreach ($venues as $venues): ?>
-        <div class="flex flex-col justify-center items-center relative bg-white shadow-lg border border-gray-300 rounded-lg p-6 hover:shadow-xl hover:scale-105 transition-transform duration-300 ease-in-out w-full sm:w-[calc(33%-20px)] h-80">
+        <div id="<?=$venues['idvenues']?>-venue"
+            data-idvenues="<?=$venues['idvenues']?>" 
+            data-name="<?=$venues['name']?>"
+            data-capacity_pax="<?=$venues['capacity_pax']?>"
+            data-description="<?=$venues['description']?>"
+        class="flex flex-col justify-center items-center relative bg-white shadow-lg border border-gray-300 rounded-lg p-6 hover:shadow-xl hover:scale-105 transition-transform duration-300 ease-in-out w-full sm:w-[calc(33%-20px)] h-80">
           <!-- Event Image -->
           <?php if (!empty($venues['photo'])): ?>
             <img src="data:image/jpeg;base64,<?php echo base64_encode($venues['photo']); ?>" 
@@ -86,7 +91,7 @@ $venues = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
           <!-- Event Actions -->
           <div class="absolute top-4 right-6 flex space-x-3">
-            <a href="update.php?id=<?php echo $venues['idvenues']; ?>" class="text-gray-600 hover:text-gray-800">
+            <a onclick="openEditModal(<?=$venues['idvenues']?>)" class="text-gray-600 hover:text-gray-800 cursor-pointer">
               <span>Edit</span>
           </a>
           <a>
@@ -102,6 +107,40 @@ $venues = $stmt->fetchAll(PDO::FETCH_ASSOC);
     </div>
   </div>
 
+  <!-- Update Modal -->
+  <div id="editModal" class="hidden fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center">
+    <div class="bg-white p-6 rounded-lg shadow-lg w-96">
+      <h2 class="text-xl font-bold text-gray-700 mb-4">Edit Venue</h2>
+      <form id="editForm" method="POST" action="update.php">
+        <input type="hidden" id="editId" name="id">
+        <div class="mb-4">
+          <label for="editName" class="block text-sm font-medium text-gray-700 mb-1">Name:</label>
+          <input type="text" id="editName" name="name" class="w-full px-4 py-2 border border-gray-300 rounded-md" required>
+        </div>
+        <div class="mb-4">
+          <label for="editCapacity" class="block text-sm font-medium text-gray-700 mb-1">Capacity Pax:</label>
+          <input type="text" id="editCapacity" name="capacity_pax" class="w-full px-4 py-2 border border-gray-300 rounded-md" required>
+        </div>
+        <div class="mb-4">
+          <label for="editDescription" class="block text-sm font-medium text-gray-700 mb-1">Description:</label>
+          <input type="text" id="editDescription" name="description" class="w-full px-4 py-2 border border-gray-300 rounded-md" required>
+        </div>
+        <div class="mb-4">
+          <label for="editImage" class="block text-sm font-medium text-gray-700 mb-1">Image:</label>
+          <input type="text" id="editImage" name="image" class="w-full px-4 py-2 border border-gray-300 rounded-md">
+        </div>
+        <div class="flex justify-end space-x-4">
+          <button type="button" class="bg-gray-500 text-white px-4 py-2 rounded-md" onclick="closeEditModal()">Cancel</button>
+          <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-md">Update</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+    <!-- Create Modal -->
+
+    <!-- Delete Modal -->
+
   <!-- JavaScript -->
   <script>
   const sidebar = document.getElementById('sidebar');
@@ -110,6 +149,34 @@ $venues = $stmt->fetchAll(PDO::FETCH_ASSOC);
   const logoImg = document.getElementById('logo-img');
   const logoText = document.getElementById('logo-text');
   const menuTexts = document.querySelectorAll('.menu-text');
+  const updateModal = document.getElementById('updateModal');
+  const createModal = document.getElementById('createModal'); 
+  const deleteModal = document.getElementById('deleteModal');
+  // let eventIdToDelete = null;
+
+  function openEditModal(venue) {
+      $id = "#" + venue + "-venue";
+      $name = $id.attr("data-name");
+      $capacity_pax = $id.attr("data-capacity_pax");
+      $description = $id.attr("data-description");
+      $image = $id.attr("data-image");
+
+      document.getElementById('editId').value = venue;
+      document.getElementById('editName').value = $name;
+      document.getElementById('editCapacity').value = $capacity_pax;
+      document.getElementById('editDescription').value = $capacity_pax;
+      document.getElementById('editImage').value = $image;
+      document.getElementById('editModal').classList.remove('hidden');
+    }
+
+    function closeModal() {
+      modal.classList.add('hidden');
+      window.location.href = 'dashboard.php';
+    }
+
+    function openCreateModal() {
+      createEventModal.classList.remove('hidden');
+    }
 
   toggleButton.addEventListener('click', () => {
     if (sidebar.classList.contains('w-64')) {
@@ -128,6 +195,7 @@ $venues = $stmt->fetchAll(PDO::FETCH_ASSOC);
       menuTexts.forEach(text => text.classList.remove('hidden'));
     }
   });
+
 </script>
 </body>
 </html>
