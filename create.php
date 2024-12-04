@@ -2,99 +2,68 @@
 include 'conn.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $title = $_POST['title'];
+    $name = $_POST['name'];
+    $capacity_pax = $_POST['capacity_pax'];
     $description = $_POST['description'];
-    $image_url = $_POST['image_url'];
+    $image = $_POST['image'];
 
-    $sql = "INSERT INTO events (title, description, image_url) VALUES (:title, :description, :image_url)";
+    $sql = "INSERT INTO venues (name, capacity_pax, description, image) VALUES (:name, :capacity_pax, :description, :image)";
     $stmt = $pdo->prepare($sql);
-    $stmt->bindParam(':title', $title);
+    $stmt->bindParam(':name', $name);
+    $stmt->bindParam(':capacity_pax', $capacity_pax);
     $stmt->bindParam(':description', $description);
-    $stmt->bindParam(':image_url', $image_url);
+    $stmt->bindParam(':image', $image);
     $stmt->execute();
 
     header("Location: dashboard.php");
     exit();
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Event</title>
-    <style>
-        body {
-            font-family: 'Roboto', sans-serif;
-            background-color: #e0e0e0; 
-            color: #333;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-        .form-container {
-            background-color: #fafafa; 
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            width: 400px;
-            box-sizing: border-box;
-        }
-        .form-container h2 {
-            text-align: center;
-            color: #757575;
-        }
-        .form-container label {
-            font-size: 14px;
-            color: #555;
-            margin-bottom: 5px;
-            display: block;
-        }
-        .form-container input {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 15px;
-            border: 1px solid #ccc; 
-            border-radius: 4px;
-            font-size: 14px;
-            background-color: #f5f5f5; 
-            box-sizing: border-box;
-        }
-        .form-container button {
-            width: 100%;
-            padding: 10px;
-            background-color: #9e9e9e; 
-            color: white;
-            border: none;
-            border-radius: 4px;
-            font-size: 16px;
-            cursor: pointer;
-        }
-        .form-container button:hover {
-            background-color: #757575; 
-        }
-        .form-container input:focus {
-            border-color: #9e9e9e; 
-        }
-    </style>
+    <title>Add Venue</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
+<body class="bg-gray-200 flex justify-center items-center h-screen m-0">
 
-    <div class="form-container">
-        <h2>Add New Venue</h2>
+    <div class="bg-white rounded-lg shadow-lg p-6 w-96">
+        <h2 class="text-center text-gray-500 text-xl font-medium mb-6">Add New Venue</h2>
         <form method="POST" action="">
-            <label for="title">Title:</label>
-            <input type="text" id="title" name="title" required>
+            <div class="mb-4">
+                <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Name:</label>
+                <input type="text" id="name" name="name" 
+                       class="w-full px-4 py-2 border border-gray-300 rounded-md text-sm focus:ring-gray-400 focus:border-gray-400" 
+                       required>
+            </div>
 
-            <label for="description">Description:</label>
-            <input type="text" id="description" name="description" required>
+            <div class="mb-4">
+                <label for="capacity_pax" class="block text-sm font-medium text-gray-700 mb-1">Capacity Pax:</label>
+                <input type="text" id="capacity_pax" name="capacity_pax" 
+                       class="w-full px-4 py-2 border border-gray-300 rounded-md text-sm focus:ring-gray-400 focus:border-gray-400" 
+                       required>
+            </div>
 
-            <label for="image_url">Image URL:</label>
-            <input type="text" id="image_url" name="image_url">
+            <div class="mb-4">
+                <label for="description" class="block text-sm font-medium text-gray-700 mb-1">Description:</label>
+                <input type="text" id="description" name="description" 
+                       class="w-full px-4 py-2 border border-gray-300 rounded-md text-sm focus:ring-gray-400 focus:border-gray-400" 
+                       required>
+            </div>
 
-            <button type="submit">Add Venue</button>
+            <div class="mb-6">
+                <label for="image" class="block text-sm font-medium text-gray-700 mb-1">Image:</label>
+                <input type="text" id="image" name="image" 
+                       class="w-full px-4 py-2 border border-gray-300 rounded-md text-sm focus:ring-gray-400 focus:border-gray-400">
+            </div>
+
+            <button type="submit" 
+                    class="w-full bg-gray-400 hover:bg-gray-500 text-white font-medium py-2 rounded-md transition-colors">
+                Add Venue
+            </button>
         </form>
     </div>
 

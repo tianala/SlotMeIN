@@ -4,10 +4,10 @@ include 'conn.php';
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
 
-    $sql = "DELETE FROM events WHERE id = :id";
+    $sql = "DELETE FROM venues WHERE idvenues = :idvenues";
     $stmt = $pdo->prepare($sql);
     
-    $stmt->bindParam(':id', $id);
+    $stmt->bindParam(':idvenues', $id);
     
     $stmt->execute();
     
