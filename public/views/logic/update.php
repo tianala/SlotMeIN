@@ -1,5 +1,5 @@
 <?php
-include 'conn.php';
+include_once "../../connect_db.php";
 
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
@@ -25,7 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->execute();
 
 
-    header("Location: dashboard.php");
+    header("Location: ../dashboard.php");
     exit();
 }
 ?>

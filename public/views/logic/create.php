@@ -1,5 +1,5 @@
 <?php
-include 'conn.php';
+include_once "../../connect_db.php";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $name = $_POST['name'];
@@ -15,7 +15,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->bindParam(':image', $image);
     $stmt->execute();
 
-    header("Location: dashboard.php");
+    header("Location: ../dashboard.php");
     exit();
 }
 ?>
