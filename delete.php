@@ -6,11 +6,13 @@ if (isset($_GET['id'])) {
 
     $sql = "DELETE FROM venues WHERE idvenues = :idvenues";
     $stmt = $pdo->prepare($sql);
-    
     $stmt->bindParam(':idvenues', $id);
-    $stmt->execute();
-    
-    header("Location: dashboard.php");
-    exit();
+
+    if ($stmt->execute()) {
+        header("Location: dashboard.php");
+        exit();
+    } else {
+        echo "Error deleting the venue.";
+    }
 }
 ?>

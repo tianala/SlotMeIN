@@ -10,12 +10,13 @@ if (isset($_GET['id'])) {
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $id = $_POST['id'];
     $name = $_POST['name'];
     $capacity_pax = $_POST['capacity_pax'];
     $description = $_POST['description'];
     $image = $_POST['image'];
 
-    $sql = "UPDATE venues SET name = :name, capacity_pax = :capacity_pax ,description = :description, image = :image WHERE idvenues =:idvenues";
+    $sql = "UPDATE venues SET name = :name, capacity_pax = :capacity_pax, description = :description, image = :image WHERE idvenues = :idvenues";
     $stmt = $pdo->prepare($sql);
     $stmt->bindParam(':name', $name);
     $stmt->bindParam(':capacity_pax', $capacity_pax);
@@ -23,7 +24,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->bindParam(':image', $image);
     $stmt->bindParam(':idvenues', $id);
     $stmt->execute();
-
 
     header("Location: dashboard.php");
     exit();

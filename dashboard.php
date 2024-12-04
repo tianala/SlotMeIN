@@ -59,11 +59,10 @@ $venues = $stmt->fetchAll(PDO::FETCH_ASSOC);
   <h1 class="text-3xl font-bold mb-2">Hi, (insert name)</h1>
 
     <!-- Create Button -->
-    <div class="absolute right-10 top-10 bg-orange-500 text-white rounded-lg px-4 py-2 flex items-center space-x-2 text-lg shadow-lg hover:bg-orange-600">
-      <a href="create.php" class="flex items-center space-x-2">
-        <span class="fas fa-plus text-2xl mr-2"></span>
-        <span class="text-lg">Add Venue</span>
-      </a>
+    <div class="absolute right-10 top-10 bg-orange-500 text-white rounded-lg px-4 py-2 flex items-center space-x-2 text-lg shadow-lg hover:bg-orange-600 cursor-pointer"
+          onclick="openCreateModal()">
+      <span class="fas fa-plus text-2xl mr-2"></span>
+      <span class="text-lg">Add Venue</span>
     </div>
 
     <p class="text-lg text-gray-600 mb-2 mt-0">Welcome to your dashboard! Here, you can create a reservation on different venues, check upcoming events and manage  <br> your account efficiently.</p>
@@ -93,12 +92,11 @@ $venues = $stmt->fetchAll(PDO::FETCH_ASSOC);
           <div class="absolute top-4 right-6 flex space-x-3">
             <a onclick="openEditModal(<?=$venues['idvenues']?>)" class="text-gray-600 hover:text-gray-800 cursor-pointer">
               <span>Edit</span>
-          </a>
-          <a>
-              <span>|</span>
-        
             </a>
-            <a href="delete.php?id=<?php echo $venues['idvenues']; ?>" class="text-gray-600 hover:text-gray-800" onclick="return confirm('Are you sure you want to delete this venue?')">
+            <a>
+              <span>|</span>
+            </a>
+            <a onclick="openDeleteModal(<?=$venues['idvenues']?>, '<?=htmlspecialchars($venues['name'], ENT_QUOTES)?>')" class="text-gray-600 hover:text-gray-800 cursor-pointer">
               <span>Delete</span>
             </a>
           </div>
@@ -107,39 +105,87 @@ $venues = $stmt->fetchAll(PDO::FETCH_ASSOC);
     </div>
   </div>
 
-  <!-- Update Modal -->
-  <div id="editModal" class="hidden fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center">
-    <div class="bg-white p-6 rounded-lg shadow-lg w-96">
-      <h2 class="text-xl font-bold text-gray-700 mb-4">Edit Venue</h2>
-      <form id="editForm" method="POST" action="update.php">
-        <input type="hidden" id="editId" name="id">
-        <div class="mb-4">
-          <label for="editName" class="block text-sm font-medium text-gray-700 mb-1">Name:</label>
-          <input type="text" id="editName" name="name" class="w-full px-4 py-2 border border-gray-300 rounded-md" required>
-        </div>
-        <div class="mb-4">
-          <label for="editCapacity" class="block text-sm font-medium text-gray-700 mb-1">Capacity Pax:</label>
-          <input type="text" id="editCapacity" name="capacity_pax" class="w-full px-4 py-2 border border-gray-300 rounded-md" required>
-        </div>
-        <div class="mb-4">
-          <label for="editDescription" class="block text-sm font-medium text-gray-700 mb-1">Description:</label>
-          <input type="text" id="editDescription" name="description" class="w-full px-4 py-2 border border-gray-300 rounded-md" required>
-        </div>
-        <div class="mb-4">
-          <label for="editImage" class="block text-sm font-medium text-gray-700 mb-1">Image:</label>
-          <input type="text" id="editImage" name="image" class="w-full px-4 py-2 border border-gray-300 rounded-md">
-        </div>
-        <div class="flex justify-end space-x-4">
-          <button type="button" class="bg-gray-500 text-white px-4 py-2 rounded-md" onclick="closeEditModal()">Cancel</button>
-          <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-md">Update</button>
-        </div>
-      </form>
+<!-- Edit Venue Modal -->
+<div id="editModal" class="hidden fixed inset-0 bg-gray-800 bg-opacity-50 backdrop-blur-sm flex justify-center items-center z-50">
+  <div class="bg-white p-6 rounded-lg shadow-lg w-96 relative" onclick="event.stopPropagation()">
+    <h2 class="text-xl font-bold text-gray-700 mb-4 text-center">Edit Venue</h2>
+    <form id="editForm" method="POST" action="update.php">
+      <input type="hidden" id="editId" name="id">
+      <div class="mb-4">
+        <label for="editName" class="block text-sm font-medium text-gray-700 mb-1">Name:</label>
+        <input type="text" id="editName" name="name" 
+               class="w-full px-4 py-2 border border-gray-300 rounded-md" required>
+      </div>
+      <div class="mb-4">
+        <label for="editCapacity" class="block text-sm font-medium text-gray-700 mb-1">Capacity Pax:</label>
+        <input type="text" id="editCapacity" name="capacity_pax" 
+               class="w-full px-4 py-2 border border-gray-300 rounded-md" required>
+      </div>
+      <div class="mb-4">
+        <label for="editDescription" class="block text-sm font-medium text-gray-700 mb-1">Description:</label>
+        <input type="text" id="editDescription" name="description" 
+               class="w-full px-4 py-2 border border-gray-300 rounded-md" required>
+      </div>
+      <div class="mb-4">
+        <label for="editImage" class="block text-sm font-medium text-gray-700 mb-1">Image URL:</label>
+        <input type="text" id="editImage" name="image" 
+               class="w-full px-4 py-2 border border-gray-300 rounded-md">
+      </div>
+      <div class="flex justify-center space-x-4">
+        <button type="button" class="bg-gray-500 text-white px-4 py-2 rounded-md" 
+                onclick="closeEditModal()">Cancel</button>
+        <button type="submit" class="bg-orange-500 text-white px-4 py-2 rounded-md">Update</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Create Venue Modal -->
+<div id="createModal" class="hidden fixed inset-0 bg-gray-800 bg-opacity-50 backdrop-blur-sm flex justify-center items-center z-50">
+  <div class="bg-white p-6 rounded-lg shadow-lg w-96 relative" onclick="event.stopPropagation()">
+    <h2 class="text-xl font-bold text-gray-700 mb-4  text-center">Add Venue</h2>
+    <form id="createForm" method="POST" action="create.php">
+      <div class="mb-4">
+        <label for="createName" class="block text-sm font-medium text-gray-700 mb-1">Name:</label>
+        <input type="text" id="createName" name="name" 
+               class="w-full px-4 py-2 border border-gray-300 rounded-md" required>
+      </div>
+      <div class="mb-4">
+        <label for="createCapacity" class="block text-sm font-medium text-gray-700 mb-1">Capacity Pax:</label>
+        <input type="text" id="createCapacity" name="capacity_pax" 
+               class="w-full px-4 py-2 border border-gray-300 rounded-md" required>
+      </div>
+      <div class="mb-4">
+        <label for="createDescription" class="block text-sm font-medium text-gray-700 mb-1">Description:</label>
+        <input type="text" id="createDescription" name="description" 
+               class="w-full px-4 py-2 border border-gray-300 rounded-md" required>
+      </div>
+      <div class="mb-4">
+        <label for="createImage" class="block text-sm font-medium text-gray-700 mb-1">Image:</label>
+        <input type="text" id="createImage" name="image" 
+               class="w-full px-4 py-2 border border-gray-300 rounded-md">
+      </div>
+      <div class="flex justify-center space-x-4">
+        <button type="button" class="bg-gray-500 text-white px-4 py-2 rounded-md" onclick="closeCreateModal()">Cancel</button>
+        <button type="submit" class="bg-orange-500 text-white px-4 py-2 rounded-md">Add Venue</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Delete Confirmation Modal -->
+<div id="deleteModal" class="hidden fixed inset-0 bg-gray-800 bg-opacity-50 backdrop-blur-sm flex justify-center items-center z-50">
+  <div class="bg-white p-6 rounded-lg shadow-lg w-96 relative">
+    <h2 class="text-xl font-bold text-gray-700 mb-4 text-center">Confirm Delete</h2>
+    <p class="text-sm text-gray-600 mb-6">
+      Are you sure you want to delete the venue: <span id="venueName" class="font-semibold text-gray-800"></span>?
+    </p>
+    <div class="flex justify-center space-x-4">
+      <button type="button" class="bg-gray-500 text-white px-4 py-2 rounded-md" onclick="closeDeleteModal()">Cancel</button>
+      <a id="confirmDelete" class="bg-orange-500 text-white px-4 py-2 rounded-md">Delete</a>
     </div>
   </div>
-
-    <!-- Create Modal -->
-
-    <!-- Delete Modal -->
+</div>
 
   <!-- JavaScript -->
   <script>
@@ -149,34 +195,81 @@ $venues = $stmt->fetchAll(PDO::FETCH_ASSOC);
   const logoImg = document.getElementById('logo-img');
   const logoText = document.getElementById('logo-text');
   const menuTexts = document.querySelectorAll('.menu-text');
-  const updateModal = document.getElementById('updateModal');
+  const editModal = document.getElementById('editModal');
   const createModal = document.getElementById('createModal'); 
-  const deleteModal = document.getElementById('deleteModal');
-  // let eventIdToDelete = null;
+  let deleteModal = document.getElementById('deleteModal');
+  let confirmDelete = document.getElementById('confirmDelete');
 
-  function openEditModal(venue) {
-      $id = "#" + venue + "-venue";
-      $name = $id.attr("data-name");
-      $capacity_pax = $id.attr("data-capacity_pax");
-      $description = $id.attr("data-description");
-      $image = $id.attr("data-image");
+  function openEditModal(id) {
+    const venueCard = document.getElementById(`${id}-venue`);
+    const name = venueCard.dataset.name;
+    const capacityPax = venueCard.dataset.capacity_pax;
+    const description = venueCard.dataset.description;
+    const image = venueCard.dataset.image;
 
-      document.getElementById('editId').value = venue;
-      document.getElementById('editName').value = $name;
-      document.getElementById('editCapacity').value = $capacity_pax;
-      document.getElementById('editDescription').value = $capacity_pax;
-      document.getElementById('editImage').value = $image;
-      document.getElementById('editModal').classList.remove('hidden');
+    document.getElementById('editId').value = id;
+    document.getElementById('editName').value = name;
+    document.getElementById('editCapacity').value = capacityPax;
+    document.getElementById('editDescription').value = description;
+    document.getElementById('editImage').value = image;
+
+    editModal.classList.remove('hidden');
+}
+
+  // Close the modal and redirect
+  function closeEditModal() {
+    editModal.classList.add('hidden');
+    window.location.href = 'dashboard.php'; 
+  }
+
+  // Close modal when clicking the backdrop
+  editModal.addEventListener('click', (event) => {
+    if (event.target === editModal) {
+      closeEditModal();
     }
+  });
 
-    function closeModal() {
-      modal.classList.add('hidden');
-      window.location.href = 'dashboard.php';
-    }
+  // Prevent modal content from triggering backdrop click
+  document.querySelector('#editModal > div').addEventListener('click', (event) => {
+    event.stopPropagation();
+  });
 
-    function openCreateModal() {
-      createEventModal.classList.remove('hidden');
+  function openCreateModal() {
+    createModal.classList.remove('hidden');
+  }
+
+  function closeCreateModal() {
+    createModal.classList.add('hidden');
+  }
+
+  // Close modal when clicking the backdrop
+  createModal.addEventListener('click', (event) => {
+    if (event.target === createModal) {
+      closeCreateModal();
     }
+  });
+
+  // Prevent modal content from triggering backdrop click
+  document.querySelector('#createModal > div').addEventListener('click', (event) => {
+    event.stopPropagation();
+  });
+
+  function openDeleteModal(id, name) {
+    confirmDelete.href = `delete.php?id=${id}`;
+    document.getElementById('venueName').textContent = name;
+    deleteModal.classList.remove('hidden');
+  }
+
+  function closeDeleteModal() {
+    deleteModal.classList.add('hidden'); 
+  }
+
+  // Close modal when clicking outside the modal content
+  deleteModal.addEventListener('click', (event) => {
+    if (event.target === deleteModal) {
+      closeDeleteModal();
+    }
+  });
 
   toggleButton.addEventListener('click', () => {
     if (sidebar.classList.contains('w-64')) {
