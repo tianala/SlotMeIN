@@ -1,5 +1,5 @@
 <?php
-include 'conn.php'; 
+include '../../connect_db.php'; 
 
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
@@ -9,7 +9,7 @@ if (isset($_GET['id'])) {
     $stmt->bindParam(':idvenues', $id);
 
     if ($stmt->execute()) {
-        header("Location: dashboard.php");
+        header("Location: ../dashboard.php");
         exit();
     } else {
         echo "Error deleting the venue.";
