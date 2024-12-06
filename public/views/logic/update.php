@@ -14,14 +14,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $name = $_POST['name'];
     $capacity_pax = $_POST['capacity_pax'];
     $description = $_POST['description'];
-    $image = $_POST['image'];
+    $image = $_FILES['image'];
+    $cur_image = $_POST['currentImg'];
 
+    if (!empty($image['tmp_name'])) {
+        $img_content = file_get_contents($image['tmp_name']);
+    } else {
+        $img_content = base64_decode($cur_image);
+    }
     $sql = "UPDATE venues SET name = :name, capacity_pax = :capacity_pax, description = :description, image = :image WHERE idvenues = :idvenues";
     $stmt = $pdo->prepare($sql);
     $stmt->bindParam(':name', $name);
     $stmt->bindParam(':capacity_pax', $capacity_pax);
     $stmt->bindParam(':description', $description);
-    $stmt->bindParam(':image', $image);
+    $stmt->bindParam(':image', $img_content, PDO::PARAM_LOB);
     $stmt->bindParam(':idvenues', $id);
     $stmt->execute();
 
