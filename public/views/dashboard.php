@@ -84,38 +84,40 @@ if ($_SESSION["logged_in"] == !true) {
             <p class="mt-0 mb-2 text-lg text-gray-600">Welcome to your dashboard! Here, you can create a reservation on different venues, check upcoming events and manage <br> your account efficiently.</p>
 
             <!-- Venue Grid -->
-            <div class="flex flex-wrap gap-5 p-5 mt-9">
-                <?php foreach ($venues as $venue): ?>
-                    <div id="<?= $venue['idvenues'] ?>-venue"
-                        data-idvenues="<?= $venue['idvenues'] ?>"
-                        data-name="<?= $venue['name'] ?>"
-                        data-capacity_pax="<?= $venue['capacity_pax'] ?>"
-                        data-description="<?= $venue['description'] ?>"
-                        data-image="data:image/jpeg;base64,<?= base64_encode($venue['image']); ?>"
-                        class="flex flex-col justify-center items-center relative bg-white shadow-lg border border-gray-300 rounded-lg hover:shadow-xl hover:scale-105 transition-transform duration-300 ease-in-out w-full sm:w-[calc(33%-20px)] h-80">
-                        <!-- Venue Image -->
-                        <?php if (!empty($venue['image'])): ?>
-                            <img src="data:image/jpeg;base64,<?php echo base64_encode($venue['image']); ?>"
-                                alt="Venue Image"
-                                class="object-cover w-full h-full rounded-lg">
-                        <?php endif; ?>
-
-                        <!-- Venue Title Overlay -->
-                        <div class="absolute bottom-0 left-0 right-0 flex items-end justify-center h-16 px-3 text-white rounded-b-lg bg-gradient-to-t from-orange-400 to-transparent">
-                            <h3 class="text-2xl font-bold transform -translate-y-3"><?php echo htmlspecialchars($venue['name']); ?></h3>
-                        </div>
-
-                        <!-- Venue Actions -->
-                        <div class="absolute flex rounded-full top-4 right-6 bg-[#ffffffa8] border border-zinc-700/60">
-                            <div onclick="openEditModal(<?= $venue['idvenues'] ?>)" class="flex justify-center w-1/2 h-full px-2 py-1 text-gray-600 border-r rounded-l-full cursor-pointer border-r-gray-600 hover:bg-orange-200">
-                                <i class="hover:text-gray-800 fa-solid fa-pen-to-square"></i>
+            <div class="flex justify-center w-ful h-fit">
+                <div class="flex flex-wrap w-11/12 p-2 mt-9">
+                    <?php foreach ($venues as $venue): ?>
+                        <div id="<?= $venue['idvenues'] ?>-venue"
+                            data-idvenues="<?= $venue['idvenues'] ?>"
+                            data-name="<?= $venue['name'] ?>"
+                            data-capacity_pax="<?= $venue['capacity_pax'] ?>"
+                            data-description="<?= $venue['description'] ?>"
+                            data-image="data:image/jpeg;base64,<?= base64_encode($venue['image']); ?>"
+                            class="flex mx-4 my-2 shrink-0 flex-col justify-center items-center relative bg-white shadow-lg border border-gray-300 rounded-lg hover:shadow-xl hover:scale-105 transition-transform duration-300 ease-in-out min-w-[28rem] max-w-[28rem] sm:w-[calc(33%-20px)] h-80">
+                            <!-- Venue Image -->
+                            <?php if (!empty($venue['image'])): ?>
+                                <img src="data:image/jpeg;base64,<?php echo base64_encode($venue['image']); ?>"
+                                    alt="Venue Image"
+                                    class="object-cover w-full h-full rounded-lg">
+                            <?php endif; ?>
+    
+                            <!-- Venue Title Overlay -->
+                            <div class="absolute bottom-0 left-0 right-0 flex items-end justify-center h-16 px-3 text-white rounded-b-lg bg-gradient-to-t from-orange-400 to-transparent">
+                                <h3 class="text-2xl font-bold transform -translate-y-3"><?php echo htmlspecialchars($venue['name']); ?></h3>
                             </div>
-                            <div onclick="openDeleteModal(<?= $venue['idvenues'] ?>, '<?= htmlspecialchars($venue['name'], ENT_QUOTES) ?>')" class="flex justify-center w-1/2 h-full px-2 py-1 text-gray-600 rounded-r-full cursor-pointer hover:bg-orange-200">
-                                <i class="fa-solid fa-trash hover:text-gray-800"></i>
+    
+                            <!-- Venue Actions -->
+                            <div class="absolute flex rounded-full top-4 right-6 bg-[#ffffffa8] border border-zinc-700/60">
+                                <div onclick="openEditModal(<?= $venue['idvenues'] ?>)" class="flex justify-center w-1/2 h-full px-2 py-1 text-gray-600 border-r rounded-l-full cursor-pointer border-r-gray-600 hover:bg-orange-200">
+                                    <i class="hover:text-gray-800 fa-solid fa-pen-to-square"></i>
+                                </div>
+                                <div onclick="openDeleteModal(<?= $venue['idvenues'] ?>, '<?= htmlspecialchars($venue['name'], ENT_QUOTES) ?>')" class="flex justify-center w-1/2 h-full px-2 py-1 text-gray-600 rounded-r-full cursor-pointer hover:bg-orange-200">
+                                    <i class="fa-solid fa-trash hover:text-gray-800"></i>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                <?php endforeach; ?>
+                    <?php endforeach; ?>
+                </div>
             </div>
         </div>
 
