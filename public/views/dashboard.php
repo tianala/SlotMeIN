@@ -43,21 +43,20 @@ if ($_SESSION["logged_in"] == !true) {
 </div>
     
     <!-- Menu Icon (Three Dots) -->
-    <div class="relative flex items-center">
-    <button class="text-white shadow-lg cursor-pointer  hover:bg-gray-300">
-        <span class="fas fa-ellipsis-v text-2xl "></span>
+<div class="relative flex items-center">
+    <button class="text-white shadow-lg cursor-pointer hover:bg-gray-300" onclick="toggleDropdownMenu()">
+        <!-- Hamburger icon (Font Awesome) -->
+        <span class="fas fa-bars text-2xl"></span>
     </button>
 </div>
-
-
         <!-- Dropdown menu -->
-        <div class="absolute right-0 w-48 bg-white border border-gray-300 rounded-lg shadow-lg mt-2 hidden">
-            <ul>
-                <li class="px-4 py-2 hover:bg-gray-200">Option 1</li>
-                <li class="px-4 py-2 hover:bg-gray-200">Option 2</li>
-                <li class="px-4 py-2 hover:bg-gray-200">Option 3</li>
-            </ul>
-        </div>
+        <div id="dropdown-menu" class="hidden absolute bg-white shadow-lg mt-2 rounded-md w-48 right-0 transform translate-x-full transition-transform duration-300 ease-in-out">
+        <ul>
+            <li><a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-200">Option 1</a></li>
+            <li><a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-200">Option 2</a></li>
+            <li><a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-200">Option 3</a></li>
+        </ul>
+    </div>
     </div>
 </header>
 
@@ -264,6 +263,8 @@ if ($_SESSION["logged_in"] == !true) {
             const createModal = document.getElementById('createModal');
             let deleteModal = document.getElementById('deleteModal');
             let confirmDelete = document.getElementById('confirmDelete');
+            const DropdownMenu = document.getElementById('dropdown-menu');
+
 
             function openEditModal(id) {
                 const venueCard = document.getElementById(`${id}-venue`);
@@ -295,8 +296,12 @@ if ($_SESSION["logged_in"] == !true) {
             }
 
             function toggleDropdownMenu() {
-            var menu = document.getElementById('dropdown-menu');
-            menu.classList.toggle('hidden');
+            const dropdownMenu = document.getElementById('dropdown-menu'); // Get the dropdown menu element
+            dropdownMenu.classList.toggle('hidden'); // Toggle the 'hidden' class
+
+            // Toggle the sliding effect
+            dropdownMenu.classList.toggle('translate-x-full'); // Slide out
+            dropdownMenu.classList.toggle('translate-x-0');   // Slide in
         }
 
             // Close the modal and redirect
