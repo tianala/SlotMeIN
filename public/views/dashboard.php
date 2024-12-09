@@ -35,23 +35,23 @@ if ($_SESSION["logged_in"] == !true) {
 
     <body class="font-sans text-gray-800 bg-gray-100 shadow-lg">
 
-    <header class="bg-orange-500 shadow-4xl flex items-center justify-between px-7 py-4 md:hidden">
+    <header class="flex items-center justify-between py-4 bg-orange-500 shadow-4xl px-7 md:hidden">
     <!-- Logo Section -->
     <div class="flex items-center space-x-2">
-    <img src="../assets/images/logo-w.png" alt="Logo" class="h-12 w-auto">
-    <div class="mt-1 font-serif text-xl text-white font-bold transition-all duration-500 whitespace-nowrap bg-orange-500 ">SlotMein</div>
+    <img src="../assets/images/logo-w.png" alt="Logo" class="w-auto h-12">
+    <div class="mt-1 font-serif text-xl font-bold text-white transition-all duration-500 bg-orange-500 whitespace-nowrap ">SlotMein</div>
 </div>
     
     <!-- Menu Icon (Three Dots) -->
     <div class="relative flex items-center">
-    <button class="text-white shadow-lg cursor-pointer  hover:bg-gray-300">
-        <span class="fas fa-ellipsis-v text-2xl "></span>
+    <button class="text-white shadow-lg cursor-pointer hover:bg-gray-300">
+        <span class="text-2xl fas fa-ellipsis-v "></span>
     </button>
 </div>
 
 
         <!-- Dropdown menu -->
-        <div class="absolute right-0 w-48 bg-white border border-gray-300 rounded-lg shadow-lg mt-2 hidden">
+        <div class="absolute right-0 hidden w-48 mt-2 bg-white border border-gray-300 rounded-lg shadow-lg">
             <ul>
                 <li class="px-4 py-2 hover:bg-gray-200">Option 1</li>
                 <li class="px-4 py-2 hover:bg-gray-200">Option 2</li>
@@ -62,7 +62,7 @@ if ($_SESSION["logged_in"] == !true) {
 </header>
 
         <!-- Sidebar -->
-        <div class="fixed w-64 h-screen transition-all duration-500 bg-white shadow-lg z-40 md:visible invisible" id="sidebar">
+        <div class="fixed z-40 invisible w-64 h-screen transition-all duration-500 bg-white shadow-lg md:visible" id="sidebar">
             <div class="flex items-center px-4 py-4">
                 <!-- Toggle Sidebar Button -->
                 <button id="toggle-sidebar" class="mr-4 text-2xl bg-transparent border-none cursor-pointer">
@@ -104,30 +104,30 @@ if ($_SESSION["logged_in"] == !true) {
         </div>
 
         <!-- Main Content -->
-        <div class="min-h-screen p-8 md:ml-64 transition-all duration-500 bg-gray-100" id="main-content">
+        <div class="min-h-screen p-8 transition-all duration-500 bg-gray-100 md:ml-64" id="main-content">
             <h1 class="mb-2 text-4xl font-bold">Hi, <?= $row['first_name'] ?></h1>
 
             <!-- Create Button -->
-<div class="fixed flex z-50 md:z-auto items-center px-4 py-2 space-x-2 text-lg text-white bg-orange-500 rounded-lg shadow-lg cursor-pointer md:right-10 right-5 md:top-10 top-5 hover:bg-orange-600 hidden md:flex"
+<div class="fixed z-50 flex items-center hidden px-4 py-2 space-x-2 text-lg text-white bg-orange-500 rounded-lg shadow-lg cursor-pointer md:z-auto md:right-10 right-5 md:top-10 top-5 hover:bg-orange-600 md:flex"
                 onclick="openCreateModal()">
-                <span class="md:mr-2 text-2xl  md:text-2xl fas fa-plus"></span>
-                <span class="text-sm md:text-lg md:flex hidden">Add Venue</span>
+                <span class="text-2xl md:mr-2 md:text-2xl fas fa-plus"></span>
+                <span class="hidden text-sm md:text-lg md:flex">Add Venue</span>
             </div>
 
 
-            <div class="fixed flex z-50 items-center px-6 py-4 space-x-2 text-lg text-white bg-orange-500 rounded-lg shadow-4xl cursor-pointer right-5 bottom-14 hover:bg-orange-600 flex md:hidden"
+            <div class="fixed z-50 flex items-center px-6 py-4 space-x-2 text-lg text-white bg-orange-500 rounded-lg cursor-pointer shadow-4xl right-5 bottom-14 hover:bg-orange-600 md:hidden"
      onclick="openCreateModal()">
-    <span class="md:mr-2 text-2xl md:text-2xl fas fa-plus"></span>
+    <span class="text-2xl md:mr-2 md:text-2xl fas fa-plus"></span>
 </div>
 
 
 
-<p class="mt-0 mb-1 text-xs md:text-lg text-gray-600 leading-relaxed">
+<p class="mt-0 mb-1 text-xs leading-relaxed text-gray-600 md:text-lg">
     Welcome to your dashboard! Here, you can create a reservation on different venues, check upcoming events, and manage your account efficiently.
 </p>
 
             <!-- Venue Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 justify-center w-full p-4 mt-2 md:mt-9">
+            <div class="grid justify-center w-full grid-cols-1 gap-4 p-4 mt-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 md:mt-9">
     <?php foreach ($venues as $venue): ?>
         <div id="<?= $venue['idvenues'] ?>-venue"
             data-idvenues="<?= $venue['idvenues'] ?>"
