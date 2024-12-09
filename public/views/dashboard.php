@@ -238,11 +238,11 @@ if ($_SESSION["logged_in"] == !true) {
             </div>
         </div>
 
-        <!-- Delete Confirmation Modal -->
+        <!-- Delete Confirmation Modals -->
         <div id="deleteModal" class="fixed inset-0 z-50 flex items-center justify-center hidden bg-gray-800 bg-opacity-50 backdrop-blur-sm">
             <div class="relative p-6 bg-white rounded-lg shadow-lg w-96">
                 <h2 class="mb-4 text-xl font-bold text-center text-gray-700">Confirm Delete</h2>
-                <p class="mb-6 text-sm text-gray-600">
+                <p class="mb-6 text-sm text-gray-600"> 
                     Are you sure you want to delete the venue: <span id="venueName" class="font-semibold text-gray-800"></span>?
                 </p>
                 <div class="flex justify-center space-x-4">
