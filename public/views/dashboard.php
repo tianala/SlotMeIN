@@ -29,12 +29,40 @@ if ($_SESSION["logged_in"] == !true) {
         <link rel="stylesheet" href="../assets/css/fontawesome/all.min.css">
         <link rel="stylesheet" href="../assets/css/fontawesome/fontawesome.min.css">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
         <script src="../assets/js/jquery-3.7.1.min.js"></script>
     </head>
 
-    <body class="font-sans text-gray-800 bg-gray-100">
+    <body class="font-sans text-gray-800 bg-gray-100 shadow-lg">
+
+    <header class="bg-orange-500 shadow-4xl flex items-center justify-between px-7 py-4 md:hidden">
+    <!-- Logo Section -->
+    <div class="flex items-center space-x-2">
+    <img src="../assets/images/logo-w.png" alt="Logo" class="h-12 w-auto">
+    <div class="mt-1 font-serif text-xl text-white font-bold transition-all duration-500 whitespace-nowrap bg-orange-500 ">SlotMein</div>
+</div>
+    
+    <!-- Menu Icon (Three Dots) -->
+    <div class="relative flex items-center">
+    <button class="text-white shadow-lg cursor-pointer  hover:bg-gray-300">
+        <span class="fas fa-ellipsis-v text-2xl "></span>
+    </button>
+</div>
+
+
+        <!-- Dropdown menu -->
+        <div class="absolute right-0 w-48 bg-white border border-gray-300 rounded-lg shadow-lg mt-2 hidden">
+            <ul>
+                <li class="px-4 py-2 hover:bg-gray-200">Option 1</li>
+                <li class="px-4 py-2 hover:bg-gray-200">Option 2</li>
+                <li class="px-4 py-2 hover:bg-gray-200">Option 3</li>
+            </ul>
+        </div>
+    </div>
+</header>
+
         <!-- Sidebar -->
-        <div class="fixed w-64 h-screen transition-all duration-500 bg-white shadow-lg" id="sidebar">
+        <div class="fixed w-64 h-screen transition-all duration-500 bg-white shadow-lg z-40 md:visible invisible" id="sidebar">
             <div class="flex items-center px-4 py-4">
                 <!-- Toggle Sidebar Button -->
                 <button id="toggle-sidebar" class="mr-4 text-2xl bg-transparent border-none cursor-pointer">
@@ -58,7 +86,7 @@ if ($_SESSION["logged_in"] == !true) {
                 <li>
                     <a href="account.php" class="flex items-center px-4 py-3 space-x-4 text-lg hover:bg-gray-300">
                         <span class="material-icons">&#xe853;</span>
-                        <span class="menu-text">Account</span>
+                        <span class="menu-text ">Account</span>
                     </a>
                 </li>
                 <li>
@@ -67,33 +95,48 @@ if ($_SESSION["logged_in"] == !true) {
                         <span class="menu-text">Help</span>
                     </a>
                 </li>
+                <a href="logout.php" class="flex items-center px-4 py-3 space-x-4 text-lg hover:bg-gray-300">
+                        <span class="material-icons-outlined">logout</span>
+                        <span class="menu-text">Log out</span>
+                </a>
+                <li>
             </ul>
         </div>
 
         <!-- Main Content -->
-        <div class="min-h-screen p-8 ml-64 transition-all duration-500 bg-gray-100" id="main-content">
-            <h1 class="mb-2 text-3xl font-bold">Hi, <?= $row['first_name'] ?></h1>
+        <div class="min-h-screen p-8 md:ml-64 transition-all duration-500 bg-gray-100" id="main-content">
+            <h1 class="mb-2 text-4xl font-bold">Hi, <?= $row['first_name'] ?></h1>
 
             <!-- Create Button -->
-            <div class="absolute flex items-center px-4 py-2 space-x-2 text-lg text-white bg-orange-500 rounded-lg shadow-lg cursor-pointer right-10 top-10 hover:bg-orange-600"
+<div class="fixed flex z-50 md:z-auto items-center px-4 py-2 space-x-2 text-lg text-white bg-orange-500 rounded-lg shadow-lg cursor-pointer md:right-10 right-5 md:top-10 top-5 hover:bg-orange-600 hidden md:flex"
                 onclick="openCreateModal()">
-                <span class="mr-2 text-2xl fas fa-plus"></span>
-                <span class="text-lg">Add Venue</span>
+                <span class="md:mr-2 text-2xl  md:text-2xl fas fa-plus"></span>
+                <span class="text-sm md:text-lg md:flex hidden">Add Venue</span>
             </div>
 
-            <p class="mt-0 mb-2 text-lg text-gray-600">Welcome to your dashboard! Here, you can create a reservation on different venues, check upcoming events and manage <br> your account efficiently.</p>
+
+            <div class="fixed flex z-50 items-center px-6 py-4 space-x-2 text-lg text-white bg-orange-500 rounded-lg shadow-4xl cursor-pointer right-5 bottom-14 hover:bg-orange-600 flex md:hidden"
+     onclick="openCreateModal()">
+    <span class="md:mr-2 text-2xl md:text-2xl fas fa-plus"></span>
+</div>
+
+
+
+<p class="mt-0 mb-1 text-xs md:text-lg text-gray-600 leading-relaxed">
+    Welcome to your dashboard! Here, you can create a reservation on different venues, check upcoming events, and manage your account efficiently.
+</p>
 
             <!-- Venue Grid -->
-            <div class="flex justify-center w-ful h-fit">
-                <div class="flex flex-wrap w-11/12 p-2 mt-9">
-                    <?php foreach ($venues as $venue): ?>
-                        <div id="<?= $venue['idvenues'] ?>-venue"
-                            data-idvenues="<?= $venue['idvenues'] ?>"
-                            data-name="<?= $venue['name'] ?>"
-                            data-capacity_pax="<?= $venue['capacity_pax'] ?>"
-                            data-description="<?= $venue['description'] ?>"
-                            data-image="data:image/jpeg;base64,<?= base64_encode($venue['image']); ?>"
-                            class="flex mx-4 my-2 shrink-0 flex-col justify-center items-center relative bg-white shadow-lg border border-gray-300 rounded-lg hover:shadow-xl hover:scale-105 transition-transform duration-300 ease-in-out min-w-[28rem] max-w-[28rem] sm:w-[calc(33%-20px)] h-80">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 justify-center w-full p-4 mt-2 md:mt-9">
+    <?php foreach ($venues as $venue): ?>
+        <div id="<?= $venue['idvenues'] ?>-venue"
+            data-idvenues="<?= $venue['idvenues'] ?>"
+            data-name="<?= $venue['name'] ?>"
+            data-capacity_pax="<?= $venue['capacity_pax'] ?>"
+            data-description="<?= $venue['description'] ?>"
+            data-image="data:image/jpeg;base64,<?= base64_encode($venue['image']); ?>"
+            class="flex flex-col justify-center items-center relative bg-white shadow-lg border border-gray-300 rounded-lg hover:shadow-xl hover:scale-105 transition-transform duration-300 ease-in-out lg:min-h-[20rem] lg:min-w-[18rem] lg:max-w-[35rem] h-auto  md:min-h-[10rem] md:min-w-[13rem] md:max-w-[20rem]">
+
                             <!-- Venue Image -->
                             <?php if (!empty($venue['image'])): ?>
                                 <img src="data:image/jpeg;base64,<?php echo base64_encode($venue['image']); ?>"
@@ -250,6 +293,11 @@ if ($_SESSION["logged_in"] == !true) {
                     }
                 });
             }
+
+            function toggleDropdownMenu() {
+            var menu = document.getElementById('dropdown-menu');
+            menu.classList.toggle('hidden');
+        }
 
             // Close the modal and redirect
             function closeEditModal() {
