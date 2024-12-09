@@ -626,6 +626,18 @@ video {
   top: 100%;
 }
 
+.bottom-14 {
+  bottom: 3.5rem;
+}
+
+.right-5 {
+  right: 1.25rem;
+}
+
+.top-5 {
+  top: 1.25rem;
+}
+
 .z-10 {
   z-index: 10;
 }
@@ -636,6 +648,10 @@ video {
 
 .z-50 {
   z-index: 50;
+}
+
+.z-40 {
+  z-index: 40;
 }
 
 .m-auto {
@@ -655,6 +671,16 @@ video {
 .my-4 {
   margin-top: 1rem;
   margin-bottom: 1rem;
+}
+
+.mx-4 {
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
+.my-2 {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 
 .mb-1 {
@@ -827,6 +853,10 @@ video {
   height: 100vh;
 }
 
+.h-auto {
+  height: auto;
+}
+
 .max-h-44 {
   max-height: 11rem;
 }
@@ -902,6 +932,30 @@ video {
 
 .w-screen {
   width: 100vw;
+}
+
+.w-\[100rem\] {
+  width: 100rem;
+}
+
+.min-w-\[28rem\] {
+  min-width: 28rem;
+}
+
+.max-w-\[28rem\] {
+  max-width: 28rem;
+}
+
+.max-w-\[50rem\] {
+  max-width: 50rem;
+}
+
+.max-w-\[100rem\] {
+  max-width: 100rem;
+}
+
+.shrink-0 {
+  flex-shrink: 0;
 }
 
 .grow {
@@ -1240,6 +1294,16 @@ video {
   padding-bottom: 1rem;
 }
 
+.px-6 {
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+.px-7 {
+  padding-left: 1.75rem;
+  padding-right: 1.75rem;
+}
+
 .pl-1 {
   padding-left: 0.25rem;
 }
@@ -1503,6 +1567,11 @@ video {
   background-color: rgb(234 88 12 / var(--tw-bg-opacity, 1));
 }
 
+.hover\:bg-gray-200:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(229 231 235 / var(--tw-bg-opacity, 1));
+}
+
 .hover\:text-gray-800:hover {
   --tw-text-opacity: 1;
   color: rgb(31 41 55 / var(--tw-text-opacity, 1));
@@ -1594,18 +1663,6 @@ video {
     margin-top: 2rem;
   }
 
-  .md\:mt-9 {
-    margin-top: 2.25rem;
-  }
-
-  .md\:flex {
-    display: flex;
-  }
-
-  .md\:hidden {
-    display: none;
-  }
-
   .md\:h-3\/4 {
     height: 75%;
   }
@@ -1642,14 +1699,6 @@ video {
     min-width: 30rem;
   }
 
-  .md\:max-w-\[20rem\] {
-    max-width: 20rem;
-  }
-
-  .md\:grid-cols-2 {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
   .md\:bg-transparent {
     background-color: transparent;
   }
@@ -1662,34 +1711,5 @@ video {
   .md\:text-5xl {
     font-size: 3rem;
     line-height: 1;
-  }
-
-  .md\:text-lg {
-    font-size: 1.125rem;
-    line-height: 1.75rem;
-  }
-}
-
-@media (min-width: 1024px) {
-  .lg\:min-h-\[20rem\] {
-    min-height: 20rem;
-  }
-
-  .lg\:min-w-\[18rem\] {
-    min-width: 18rem;
-  }
-
-  .lg\:max-w-\[35rem\] {
-    max-width: 35rem;
-  }
-
-  .lg\:grid-cols-3 {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-}
-
-@media (min-width: 1280px) {
-  .xl\:grid-cols-4 {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 }
