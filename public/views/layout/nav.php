@@ -31,7 +31,7 @@
 
 
 <!-- Sidebar -->
-<div class="fixed w-64 h-screen transition-all duration-500 bg-white shadow-lg" id="sidebar">
+<div class="fixed hidden w-64 h-screen transition-all duration-500 bg-white shadow-lg md:block" id="sidebar">
     <div class="flex items-center px-4 py-4">
         <button id="toggle-sidebar" class="mr-4 text-2xl bg-transparent border-none cursor-pointer">
             <span class="material-icons">menu</span>
