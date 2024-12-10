@@ -11,14 +11,14 @@
     <div class="relative flex items-center">
     <button 
         id="menuButton" 
-        class="text-white cursor-pointer hover:bg-gray-300 p-2 rounded"
+        class="p-2 text-white rounded cursor-pointer hover:bg-gray-300"
         onclick="toggleDropdown()"
     >
         <span class="text-2xl fas fa-bars"></span>
     </button>
     <div 
         id="dropdownMenu" 
-        class="absolute right-0 mt-40 w-48 bg-white rounded-lg shadow-lg hidden opacity-0 transform scale-95 transition-all duration-300"
+        class="absolute right-0 hidden w-48 mt-40 transition-all duration-300 transform scale-95 bg-white rounded-lg shadow-lg opacity-0"
     >
         <ul class="list-none">
             <li id="dashboard-nav">
@@ -40,7 +40,7 @@
                 </a>
             </li>
             <li id="logout-nav">
-                <a href="log_out.php" class="flex items-center px-4 py-3 space-x-4 text-lg  hover:bg-orange-400">
+                <a href="views/logic/log_out.php" class="flex items-center px-4 py-3 space-x-4 text-lg hover:bg-orange-400">
                     <span class="material-icons">&#xe879;</span>
                     <span class="menu-text">Log Out</span>
                 </a>
