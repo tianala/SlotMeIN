@@ -22,7 +22,7 @@ if (isset($_GET['id'])) {
 }
 
 if (isset($_GET['error']) && $_GET['error'] === 'conflict') {
-    echo '<div class="fixed p-3 text-center text-red-600 transform -translate-x-1/2 bg-red-100 border border-red-500 rounded shadow-md top-10 left-1/2">
+    echo '<div id="error-message" class="fixed p-3 text-center text-red-600 transform -translate-x-1/2 bg-red-100 border border-red-500 rounded shadow-md top-10 left-1/2">
             <strong>Error:</strong> Time conflict. Please choose a different time.
         </div>';
 
@@ -314,7 +314,9 @@ if (isset($_GET['error']) && $_GET['error'] === 'conflict') {
         });
     });
 
-
+    setTimeout(function () {
+        $("#error-message").fadeOut();
+    }, 6969);
 </script>
 
 </html>
