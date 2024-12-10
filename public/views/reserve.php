@@ -100,10 +100,13 @@ if (isset($_GET['error']) && $_GET['error'] === 'conflict') {
 </head>
 
 <body class="text-gray-900 bg-gray-50">
+    <?php include("layout/nav.php") ?>
+
+
     <div class="max-w-screen-md p-4 mx-auto">
 
 
-        <div class="mb-6">
+        <div id="main-content" class="mb-6">
             <?php if (!empty($venue['image'])): ?>
                 <img src="data:image/jpeg;base64,<?= base64_encode($venue['image']) ?>" alt="Image of <?= $venue['name'] ?>"
                     class="object-cover w-full h-64 rounded-lg shadow-md">
@@ -156,8 +159,9 @@ if (isset($_GET['error']) && $_GET['error'] === 'conflict') {
                 <ul class="space-y-4">
                     <?php foreach ($reservations as $reservation): ?>
                         <li class="p-4 rounded-lg shadow bg-gray-50">
+                            <p class="text-xl font-semibold "><?= ucfirst($reservation['event']) ?></p>
                             <p class="text-sm text-gray-600"><?= date('F j, Y', strtotime($reservation['date'])) ?></p>
-                            <p class="text-lg font-semibold text-orange-500">
+                            <p class="font-semibold text-orange-500">
                                 <?= date('g:i A', strtotime($reservation['time_start'])) ?> -
                                 <?= date('g:i A', strtotime($reservation['time_end'])) ?>
                             </p>
@@ -177,6 +181,11 @@ if (isset($_GET['error']) && $_GET['error'] === 'conflict') {
                 <form id="booking-form" method="POST" action="logic/add_reservation.php">
                     <input type="hidden" name="venue_id" value="<?= $id ?>">
                     <input type="hidden" name="user_id" value="<?= $_SESSION['user_id'] ?>">
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700">Event</label>
+                        <input type="text" id="event" name="event" class="w-full p-2 mt-1 border rounded"
+                            placeholder="max. 90 characters" required />
+                    </div>
                     <div class="mb-4">
                         <label class="block text-sm font-medium text-gray-700">Select Date</label>
                         <input type="date" id="date-picker" name="date" class="w-full p-2 mt-1 border rounded" required
@@ -215,7 +224,7 @@ if (isset($_GET['error']) && $_GET['error'] === 'conflict') {
     </div>
 </body>
 
-
+<script src="layout/nav.js"></script>
 <script>
     $(document).ready(function () {
         const minTime = "<?= $venue['min_time'] ?>";

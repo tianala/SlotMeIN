@@ -4,6 +4,7 @@ include '../../connect_db.php';
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $venue_id = $_POST['venue_id'];
     $user_id = $_POST['user_id'];
+    $event = $_POST['event'];
     $date = $_POST['date'];
     $start_time = $_POST['start_time'];
     $end_time = $_POST['end_time'];
@@ -37,14 +38,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             exit;
         }
 
-        $sql = "INSERT INTO reservation_slots (venue, reservee, date, time_start, time_end) 
-                VALUES (:venue, :user, :date, :time_start, :time_end)";
+        $sql = "INSERT INTO reservation_slots (venue, reservee, date, time_start, time_end, event) 
+                VALUES (:venue, :user, :date, :time_start, :time_end, :event)";
         $stmt = $pdo->prepare($sql);
         $stmt->bindParam(':venue', $venue_id);
         $stmt->bindParam(':user', $user_id);
         $stmt->bindParam(':date', $date);
         $stmt->bindParam(':time_start', $adjusted_start_time);
         $stmt->bindParam(':time_end', $adjusted_end_time);
+        $stmt->bindParam(':event', $event);
         $stmt->execute();
 
         header("Location: ../reserve.php?id=$venue_id");

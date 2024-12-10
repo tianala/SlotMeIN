@@ -69,7 +69,8 @@ if ($_SESSION["logged_in"] == !true) {
                         data-name="<?= $venue['name'] ?>" data-capacity_pax="<?= $venue['capacity_pax'] ?>"
                         data-description="<?= $venue['description'] ?>"
                         data-image="data:image/jpeg;base64,<?= base64_encode($venue['image']); ?>"
-                        class="flex flex-col justify-center items-center relative bg-white shadow-lg border border-gray-300 rounded-lg hover:shadow-xl hover:scale-105 transition-transform duration-300 ease-in-out lg:min-h-[20rem] lg:min-w-[18rem] lg:max-w-[35rem] h-auto  md:min-h-[10rem] md:min-w-[13rem] md:max-w-[20rem]">
+                        onclick="location.href='reserve.php?id=<?= $venue['idvenues'] ?>'"
+                        class="cursor-pointer flex flex-col justify-center items-center relative bg-white shadow-lg border border-gray-300 rounded-lg hover:shadow-xl hover:scale-105 transition-transform duration-300 ease-in-out lg:min-h-[20rem] lg:min-w-[18rem] lg:max-w-[35rem] h-auto  md:min-h-[10rem] md:min-w-[13rem] md:max-w-[20rem]">
 
                         <!-- Venue Image -->
                         <?php if (!empty($venue['image'])): ?>
