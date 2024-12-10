@@ -1,30 +1,49 @@
 <?php
-session_start();
-include_once "../../connect_db.php";
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}include_once "../../connect_db.php";
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $email = $_POST["email"];
-    $password = $_POST["password"];
-    $hashed_pw = hash('sha256', $password);
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    try {
+        $pdo->beginTransaction();
 
-    $stmt = $pdo->prepare("SELECT * FROM users WHERE email=:email");
-    $stmt->execute(['email' => $email]);
+        $email = trim($_POST["email"]);
+        $password = trim($_POST["password"]);
+        $hashed_pw = hash('sha256', $password);
 
-    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+        $stmt = $pdo->prepare("SELECT * FROM users WHERE email = :email");
+        $stmt->bindParam(':email', $email, PDO::PARAM_STR);
 
-    if ($user) {
-        if ($user["password"] == $hashed_pw) {
-            $_SESSION["logged_in"] = true;
-            $_SESSION["user_id"] = $user["idusers"];
-            header("Location: ../dashboard.php");
-            exit();
+        if ($stmt->execute()) {
+            $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            if ($user) {
+                if ($user["password"] === $hashed_pw) {
+                    $_SESSION["logged_in"] = true;
+                    $_SESSION["user_id"] = $user["idusers"];
+
+                    $pdo->commit();
+
+                    header("Location: ../dashboard.php");
+                    exit();
+                } else {
+                    $_SESSION["message"] = "Invalid password.";
+                }
+            } else {
+                $_SESSION["message"] = "User does not exist.";
+            }
         } else {
-            $_SESSION["error_message"] = "Invalid Password.";
-            header("Location: ../../index.php");
-            exit();
+            throw new Exception("Error: " . $stmt->errorInfo()[2]);
         }
-    } else {
-        $_SESSION["error_message"] = "User does not exist.";
+
+        $pdo->rollBack();
+        $_SESSION['message_type'] = "error";
+        header("Location: ../../index.php");
+        exit();
+    } catch (Exception $e) {
+        $pdo->rollBack();
+        $_SESSION['message'] = "Transaction failed: " . $e->getMessage();
+        $_SESSION['message_type'] = "error";
         header("Location: ../../index.php");
         exit();
     }

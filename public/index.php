@@ -2,8 +2,6 @@
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
-$error_message = isset($_SESSION["error_message"]) ? $_SESSION["error_message"] : [];
-
 include_once "connect_db.php";
 
 if (isset($_SESSION['logged_in'])) {
@@ -14,6 +12,8 @@ if (isset($_SESSION['logged_in'])) {
 $stmt = $pdo->prepare("SELECT idorganizations as idorg, name from organizations");
 $stmt->execute();
 $orgs = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+$_SESSION["error_message"] = "User does not exist."
 ?>
 
 <style>
@@ -45,11 +45,11 @@ $orgs = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <title>Sign In</title>
 </head>
 <body class="flex w-screen min-h-screen bg-zinc-700">
-    <?php if($error_message): ?>
-        <div id="errorMessage" class="fixed z-20 px-4 py-2 text-orange-500 transform -translate-x-1/2 bg-white rounded-lg shadow top-10 left-1/2">
-            <?= htmlspecialchars($error_message)?>
+    <?php if(isset($_SESSION['message'])): ?>
+        <div id="message" class="fixed z-20 px-4 py-2 text-orange-500 transform -translate-x-1/2 bg-white rounded-lg shadow top-10 left-1/2">
+            <?= htmlspecialchars($_SESSION['message'])?>
         </div>
-        <?php unset($_SESSION["error_message"]);?>
+        <?php unset($_SESSION["message"]);?>
     <?php endif; ?>
 
     <div class="flex flex-col w-full h-screen md:h-3/4 md:m-auto md:bg-transparent bg-zinc-700">
@@ -57,7 +57,7 @@ $orgs = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <div class="flex flex-col w-full p-4 bg-white shadow md:w-1/2 md:min-w-[30rem] rounded-xl h-[32rem] md:h-[37rem]">
 
             <!-- Log in -->
-                <div id="logInDiv" class="w-full h-full">
+                <div id="logInDiv" class="w-full h-full <?= isset($_SESSION['form_state']) && $_SESSION['form_state'] === 'signup' ? 'hidden' : '' ?>">
                     <img class="w-40 h-40 m-auto md:mb-5 md:w-60 md:h-60 " src="assets/images/logo.png">
                     <form id="logInForm" action="views/logic/sign_in.php" type="button" method="POST" class="flex flex-col items-center w-full mt-5 h-fit">
                         <div class="flex items-center w-full p-2 mb-4 border border-gray-400 rounded-full md:w-5/6">
@@ -79,9 +79,9 @@ $orgs = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 </div>
 
             <!-- Register -->
-                <div id="registerDiv" class="hidden w-full h-full overflow-y-hidden">
+                <div id="registerDiv" class="<?= isset($_SESSION['form_state']) && $_SESSION['form_state'] === 'signup' ? '' : 'hidden' ?> w-full h-full overflow-y-hidden">
                     <div class="flex justify-center w-full mt-4 text-4xl font-semibold text-orange-500 md:text-5xl">Sign Up</div>
-                    <form id="registerForm" class="flex flex-col items-center w-full mt-10 md:mt-14" action="views/logic/register.php" method="POST">
+                    <form id="registerForm" class="flex flex-col items-center w-full mt-10 md:mt-14" action="index.php" method="POST">
                         <input id="first_name" name="first_name" class="w-10/12 pl-1 mb-3 text-lg border-b-2 border-gray-300 md:mb-5 focus:outline-b placeholder-zinc-700 focus:outline-none focus:border-orange-300" placeholder="First Name" required>
                         <input id="last_name" name="last_name" class="w-10/12 pl-1 mb-3 text-lg border-b-2 border-gray-300 md:mb-5 focus:outline-b placeholder-zinc-700 focus:outline-none focus:border-orange-300" placeholder="Last Name" required>
                         <input id="reg_email" type="email" name="reg_email" class="w-10/12 pl-1 mb-3 text-lg border-b-2 border-gray-300 md:mb-5 focus:outline-b placeholder-zinc-700 focus:outline-none focus:border-orange-300" placeholder="Email" required>
@@ -164,7 +164,7 @@ $orgs = $stmt->fetchAll(PDO::FETCH_ASSOC);
     $(document).ready(function () {
         $(document).ready(function () {
             setTimeout(function () {
-                $("#errorMessage").fadeOut();
+                $("#message").fadeOut();
             }, 3000);
         });
 
@@ -221,7 +221,7 @@ $orgs = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 alert("Please choose your organization.");
             }
 
-            load();
+            else {load();}
         });
     })
 

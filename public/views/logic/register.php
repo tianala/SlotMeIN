@@ -20,7 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
     if ($stmt->execute()) {
         echo "Account created successfully";
-        header("Location: ../../index.php");
+        // header("Location: ../../index.php"); 
     } else {
         echo "Account cannot be created";
     }
