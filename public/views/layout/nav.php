@@ -40,7 +40,7 @@
                 </a>
             </li>
             <li id="logout-nav">
-                <a href="views/logic/log_out.php" class="flex items-center px-4 py-3 space-x-4 text-lg hover:bg-orange-400">
+                <a href="logic/log_out.php" class="flex items-center px-4 py-3 space-x-4 text-lg hover:bg-orange-400">
                     <span class="material-icons">&#xe879;</span>
                     <span class="menu-text">Log Out</span>
                 </a>
@@ -90,7 +90,7 @@
 
         </li>
         <li id="logout-nav">
-                <a href="log_out.php" class="flex items-center px-4 py-3 space-x-4 text-lg hover:bg-orange-400">
+                <a href="logic/log_out.php" class="flex items-center px-4 py-3 space-x-4 text-lg hover:bg-orange-400">
                     <span class="material-icons">&#xe879;</span>
                     <span class="menu-text">Log Out</span>
                 </a>
