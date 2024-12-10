@@ -2,6 +2,7 @@
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
+$error_message = isset($_SESSION["error_message"]) ? $_SESSION["error_message"] : [];
 
 include_once "connect_db.php";
 
@@ -10,7 +11,6 @@ if (isset($_SESSION['logged_in'])) {
         header('location: ./views/dashboard.php');
     }
 }
-
 $stmt = $pdo->prepare("SELECT idorganizations as idorg, name from organizations");
 $stmt->execute();
 $orgs = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -45,6 +45,13 @@ $orgs = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <title>Sign In</title>
 </head>
 <body class="flex w-screen min-h-screen bg-zinc-700">
+    <?php if($error_message): ?>
+        <div id="errorMessage" class="fixed z-20 px-4 py-2 text-orange-500 transform -translate-x-1/2 bg-white rounded-lg shadow top-10 left-1/2">
+            <?= htmlspecialchars($error_message)?>
+        </div>
+        <?php unset($_SESSION["error_message"]);?>
+    <?php endif; ?>
+
     <div class="flex flex-col w-full h-screen md:h-3/4 md:m-auto md:bg-transparent bg-zinc-700">
         <div class="flex items-center justify-center w-11/12 h-full p-5 mx-auto md:w-1/2">
             <div class="flex flex-col w-full p-4 bg-white shadow md:w-1/2 md:min-w-[30rem] rounded-xl h-[32rem] md:h-[37rem]">
@@ -108,6 +115,16 @@ $orgs = $stmt->fetchAll(PDO::FETCH_ASSOC);
             </div>
         </div>
     </div>
+
+    <div id="loaderDiv" class="fixed top-0 left-0 flex items-center justify-center invisible w-full h-full bg-gray-800/50 backdrop-blur-sm">
+        <div class="w-12 h-12 border-4 border-orange-500 rounded-full border-t-transparent animate-spin"></div>
+    </div>
+
+    <!-- <style>
+        .loader {
+            @apply w-12 h-12 border-4 border-t-transparent border-blue-500 rounded-full animate-spin;
+        }
+    </style> -->
 </body>
 
 
@@ -137,7 +154,20 @@ $orgs = $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
     }
 
+    function load() {
+      $("#loaderDiv").removeClass("invisible"); 
+      setTimeout(function () {
+        location.reload();
+      }, 2000);
+    };
+
     $(document).ready(function () {
+        $(document).ready(function () {
+            setTimeout(function () {
+                $("#errorMessage").fadeOut();
+            }, 3000);
+        });
+
         $("#register").on('click', function (event) {
             event.preventDefault();
             $("#logInDiv").addClass("hidden");
@@ -156,6 +186,19 @@ $orgs = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 $("#dropdown").addClass("invisible");
             }
         })
+
+        $("#logInForm").on("submit", function (event) {
+            email = $("#email").val();
+            password = $("#password").val();
+
+            if (!email || !password) {
+                event.preventDefault();
+                alert("Please fill in all fields.");
+                return;
+            }
+
+            load();
+        });
 
         $("#registerForm").on("submit", function (event) {
             password = $("#set_password").val();
@@ -177,7 +220,10 @@ $orgs = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 event.preventDefault();
                 alert("Please choose your organization.");
             }
+
+            load();
         });
     })
+
 </script>
 </html>

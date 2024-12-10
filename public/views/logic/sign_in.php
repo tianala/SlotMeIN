@@ -1,4 +1,5 @@
 <?php
+session_start();
 include_once "../../connect_db.php";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -12,16 +13,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
     if ($user) {
-        if($user["password"] == $hashed_pw) {
-            session_start();
-            $_SESSION["logged_in"] = True;
+        if ($user["password"] == $hashed_pw) {
+            $_SESSION["logged_in"] = true;
             $_SESSION["user_id"] = $user["idusers"];
             header("Location: ../dashboard.php");
             exit();
         } else {
-            echo "Invalid Password.";
+            $_SESSION["error_message"] = "Invalid Password.";
+            header("Location: ../../index.php");
+            exit();
         }
     } else {
-        echo "User does not exist";
+        $_SESSION["error_message"] = "User does not exist.";
+        header("Location: ../../index.php");
+        exit();
     }
 }

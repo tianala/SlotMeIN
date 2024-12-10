@@ -95,7 +95,7 @@ if ($_SESSION["logged_in"] == !true) {
                         <span class="menu-text">Help</span>
                     </a>
                 </li>
-                <a href="logout.php" class="flex items-center px-4 py-3 space-x-4 text-lg hover:bg-gray-300">
+                <a href="logic/log_out.php" class="flex items-center px-4 py-3 space-x-4 text-lg hover:bg-gray-300">
                         <span class="material-icons-outlined">logout</span>
                         <span class="menu-text">Log out</span>
                 </a>
