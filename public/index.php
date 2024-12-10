@@ -12,8 +12,6 @@ if (isset($_SESSION['logged_in'])) {
 $stmt = $pdo->prepare("SELECT idorganizations as idorg, name from organizations");
 $stmt->execute();
 $orgs = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-$_SESSION["error_message"] = "User does not exist."
 ?>
 
 <style>
@@ -81,7 +79,7 @@ $_SESSION["error_message"] = "User does not exist."
             <!-- Register -->
                 <div id="registerDiv" class="<?= isset($_SESSION['form_state']) && $_SESSION['form_state'] === 'signup' ? '' : 'hidden' ?> w-full h-full overflow-y-hidden">
                     <div class="flex justify-center w-full mt-4 text-4xl font-semibold text-orange-500 md:text-5xl">Sign Up</div>
-                    <form id="registerForm" class="flex flex-col items-center w-full mt-10 md:mt-14" action="index.php" method="POST">
+                    <form id="registerForm" class="flex flex-col items-center w-full mt-10 md:mt-14" action="views/logic/register.php" method="POST">
                         <input id="first_name" name="first_name" class="w-10/12 pl-1 mb-3 text-lg border-b-2 border-gray-300 md:mb-5 focus:outline-b placeholder-zinc-700 focus:outline-none focus:border-orange-300" placeholder="First Name" required>
                         <input id="last_name" name="last_name" class="w-10/12 pl-1 mb-3 text-lg border-b-2 border-gray-300 md:mb-5 focus:outline-b placeholder-zinc-700 focus:outline-none focus:border-orange-300" placeholder="Last Name" required>
                         <input id="reg_email" type="email" name="reg_email" class="w-10/12 pl-1 mb-3 text-lg border-b-2 border-gray-300 md:mb-5 focus:outline-b placeholder-zinc-700 focus:outline-none focus:border-orange-300" placeholder="Email" required>
