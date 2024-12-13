@@ -246,39 +246,6 @@ if ($_SESSION["logged_in"] == !true) {
                 });
             }
 
-    // Toggle dropdown visibility
-    function toggleDropdown() {
-        const dropdown = document.getElementById('dropdownMenu');
-        if (dropdown.classList.contains('hidden')) {
-            dropdown.classList.remove('hidden', 'opacity-0', 'scale-95');
-            dropdown.classList.add('opacity-100', 'scale-100');
-        } else {
-            dropdown.classList.add('opacity-0', 'scale-95');
-            dropdown.classList.remove('opacity-100', 'scale-100');
-            setTimeout(() => {
-                dropdown.classList.add('hidden');
-            }, 300); // Matches the transition duration
-        }
-    }
-
-    // Close the dropdown if the user clicks outside
-    window.addEventListener('click', function (event) {
-        const dropdown = document.getElementById('dropdownMenu');
-        const menuButton = document.getElementById('menuButton');
-        
-        // Check if the click is outside the dropdown or the menu button
-        if (!dropdown.contains(event.target) && !menuButton.contains(event.target)) {
-            // Close the dropdown if clicked outside
-            if (!dropdown.classList.contains('hidden')) {
-                dropdown.classList.add('opacity-0', 'scale-95');
-                dropdown.classList.remove('opacity-100', 'scale-100');
-                setTimeout(() => {
-                    dropdown.classList.add('hidden');
-                }, 300); // Match the transition duration
-            }
-        }
-    });
-
             function closeEditModal() {
                 editModal.classList.add('hidden');
                 window.location.href = 'dashboard.php';

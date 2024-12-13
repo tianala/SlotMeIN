@@ -17,7 +17,7 @@ if ($_SESSION["logged_in"] == !true) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Help</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/output.css">
     <link rel="stylesheet" href="../assets/css/fontawesome/all.min.css">
     <link rel="stylesheet" href="../assets/css/fontawesome/fontawesome.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -25,10 +25,9 @@ if ($_SESSION["logged_in"] == !true) {
 </head>
 
 <body class="font-sans text-gray-800 bg-gray-100">
-
 <?php include ("layout/nav.php"); ?>
     <!-- Main Content -->
-    <div class="min-h-screen p-8 ml-64 transition-all duration-500 bg-gray-100" id="main-content">
+    <div class="w-full min-h-screen p-8 transition-all duration-500 bg-gray-100 md:ml-64" id="main-content">
         <div class="p-6 bg-white shadow-lg rounded-xl">
             <div class="mb-8 text-center">
                 <!-- Title with Icon -->
